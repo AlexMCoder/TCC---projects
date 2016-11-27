@@ -8,7 +8,10 @@ import javax.inject.Named;
 
 import com.projeto.pedidovenda.model.Produto;
 import com.projeto.pedidovenda.repository.Categorias;
+import com.projeto.pedidovenda.service.CadastroProdutoService;
 import com.projeto.util.jsf.FacesUtil;
+
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -19,35 +22,46 @@ import javax.validation.constraints.NotNull;
 @ViewScoped
 public class CadastroProdutoBean implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private Categorias categorias;
-	
+
+	@Inject
+	private CadastroProdutoService cadastroProdutoService;
+
 	private Produto produto;
 	private Categoria categoriaPai;
-	
+
 	private List<Categoria> categoriasRaizes;
 	private List<Categoria> subcategorias;
-	
+
 	public CadastroProdutoBean() {
-		produto = new Produto();
+		limpar();
 	}
-	
-        @PostConstruct
+
+	@PostConstruct
 	public void inicializar() {
 		if (FacesUtil.isNotPostback()) {
 			categoriasRaizes = categorias.raizes();
 		}
 	}
-	
+
 	public void carregarSubcategorias() {
 		subcategorias = categorias.subcategoriasDe(categoriaPai);
 	}
-	
+
+	private void limpar() {
+		produto = new Produto();
+		categoriaPai = null;
+		subcategorias = new ArrayList<>();
+	}
+
 	public void salvar() {
-		System.out.println("Categoria pai selecionada: " + categoriaPai.getDescricao());
-		System.out.println("Subcategoria selecionada: " + produto.getCategoria().getDescricao());
+		this.produto = cadastroProdutoService.salvar(this.produto);
+		limpar();
+
+		FacesUtil.addInfoMessage("Produto salvo com sucesso!");
 	}
 
 	public Produto getProduto() {
@@ -69,6 +83,6 @@ public class CadastroProdutoBean implements Serializable {
 
 	public List<Categoria> getSubcategorias() {
 		return subcategorias;
-}
+	}
 
 }

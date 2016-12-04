@@ -18,16 +18,21 @@ import javax.validation.constraints.Pattern;
  *
  * @author alex
  */
-@Target({ElementType.FIELD, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
+@Target({ ElementType.FIELD, ElementType.METHOD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = {})
 @Pattern(regexp = "([a-zA-Z]{2}\\d{4,18})?")
 public @interface SKU {
 
-    @OverridesAttribute(constraint = Pattern.class, name = "message")
-    String message() default "{com.projeto.pedidovenda.constraints.SKU.message}";
+	// Todos os atributos de um tipo de anotação devem ser declarados
 
-    Class<?>[] groups() default {};
+	// Define mensagem
+	@OverridesAttribute(constraint = Pattern.class, name = "message")
+	String message() default "{com.projeto.pedidovenda.constraints.SKU.message}";
 
-    Class<? extends Payload>[] payload() default {};
+	// Validação será aplicada sobre o grupo padrão
+	Class<?>[] groups() default {};
+
+	//Atributo Payload define que a validação pode ser utilizada por clientes Bean Validation
+	Class<? extends Payload>[] payload() default {};
 }

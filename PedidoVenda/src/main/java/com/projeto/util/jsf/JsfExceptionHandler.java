@@ -33,11 +33,13 @@ public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 	}
 	
 	@Override
+	// Iterator fornece uma forma de acessar seqüencialmente os elementos de uma coleção sem expor sua representação interna
 	public void handle() throws FacesException {
 		Iterator<ExceptionQueuedEvent> events = getUnhandledExceptionQueuedEvents().iterator();
 		 
 		while (events.hasNext()) {
 			ExceptionQueuedEvent event = events.next();
+			// Busca o contexto da exceção (Evento que causou a exceção)
 			ExceptionQueuedEventContext context = (ExceptionQueuedEventContext) event.getSource();
 			
 			Throwable exception = context.getException();
@@ -54,6 +56,7 @@ public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 					FacesUtil.addErrorMessage(negocioException.getMessage());
 				} else {
 					handled = true;
+					// Faz o log da mensagem de erro e da sua origem
 					log.error("Erro de sistema: " + exception.getMessage(), exception);
 					redirect("/Erro.xhtml");
 				}
@@ -63,10 +66,11 @@ public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 				}
 			}
 		}
-		
+		//Finaliza o trabalho pegando tratamento  pai (JSF)
 		getWrapped().handle();
 	}
 	
+	// Verifica se a exceção é uma NegocioException (Throwable pode ser varios tipos de exceção) - Método recursivo
 	private NegocioException getNegocioException(Throwable exception) {
 		if (exception instanceof NegocioException) {
 			return (NegocioException) exception;
@@ -77,6 +81,7 @@ public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 		return null;
 	}
 	
+	// Busca a raiz do contexto do erro da aplicação
 	private void redirect(String page) {
 		try {
 			FacesContext facesContext = FacesContext.getCurrentInstance();

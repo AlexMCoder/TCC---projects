@@ -15,6 +15,11 @@ public class CadastroProdutoService implements Serializable {
 	@Inject
 	private Produtos produtos;
 
+	/**	
+	 * Metodo que salva apenas se SKU ainda não existe (SKU deve ser único) ou se for uma edição
+	 * @param produto
+	 * @return 
+	 */
 	@Transactional
 	public Produto salvar(Produto produto) {
 		Produto produtoExistente = produtos.porSku(produto.getSku());

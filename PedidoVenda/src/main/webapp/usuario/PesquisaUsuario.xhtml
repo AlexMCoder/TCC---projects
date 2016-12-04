@@ -8,42 +8,57 @@
     <ui:define name="titulo">Pesquisa de Usuário</ui:define>
 
     <ui:define name="corpo">
-        <h:form>
+        <h:form id="frmConsulta">
             <h1>Pesquisa de Usuário</h1>
+            
+            <p:messages autoUpdate="true" closable="true" />
 
             <p:toolbar style="margin-top: 20px">
-                <p:toolbarGroup>
-                    <p:commandButton value="Pesquisar" />
-                </p:toolbarGroup>
-                <p:toolbarGroup align="right">
-                    <p:button value="Novo" outcome="/usuario/CadastroUsuario" />
-                </p:toolbarGroup>
-            </p:toolbar>
+				<p:toolbarGroup>
+					<p:commandButton value="Consultar" action="#{pesquisaUsuarioBean.pesquisar}"
+	    				update="@form"/>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/usuario/CadastroUsuario"/>
+				</p:toolbarGroup>
+			</p:toolbar>
 
             <p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px"
-                         columnClasses="rotulo, campo">
+				columnClasses="rotulo, campo" >
+				
+				<p:outputLabel value="Nome" for="nome"/>
+				<p:inputText id="nome" size="60" value="#{pesquisaUsuarioBean.filtro.nome}"/>
+			</p:panelGrid>
 
-                <p:outputLabel value="Nome"/>
-                <p:inputText size="80" />
-            </p:panelGrid>
-
-            <p:dataTable id="pesquisaUsuarioTable" value="#{pesquisaUsuarioBean.pedidosFiltrados}" var="usuario"
-                         style="margin-top: 20px" emptyMessage="Nenhum usuario encontrado."
-                         rows="20" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
-
-                <p:column headerText="Nome">
-                    <h:outputText value="Nome da Pessoa Aqui"/>
-                </p:column>
-
-                <p:column headerText="E-mail">
-                    <h:outputText value="contato@sistemasdevenda.com.br"/>
-                </p:column>
-                
-                <p:column style="width: 100px; text-align: center">
-                    <p:button icon="ui-icon-pencil" title="Editar" />
-                    <p:commandButton icon="ui-icon-trash" title="Excluir" />
-                </p:column>
-            </p:dataTable>
+            <p:dataTable id="usuariosTable" value="#{pesquisaUsuarioBean.usuariosFiltrados}" var="usuario"
+				style="margin-top: 20px" emptyMessage="Nenhum usuário encontrado."
+				rows="10" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+				<p:column headerText="Nome" style="width: 600px" >
+					<h:outputText value="#{usuario.nome}"/>
+				</p:column>
+				<p:column headerText="E-mail" >
+					<h:outputText value="#{usuario.email}"/>
+				</p:column>
+				<p:column style="width: 100px; text-align: center" >
+					<p:button outcome="/usuario/CadastroUsuario" icon="ui-icon-pencil" title="Editar">
+						<f:param name="usuario" value="#{usuario.id}" />
+					</p:button>
+					<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmacaoExclusaoUsuario.show()"
+						process="@this" update=":frmConsulta:confirmacaoExclusaoDialog">
+						<f:setPropertyActionListener target="#{pesquisaUsuarioBean.usuarioSelecionado}"
+							value="#{usuario}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			
+			<p:confirmDialog header="Exclusão de usuário" 
+				message="Tem certeza que deseja excluir o usuário #{pesquisaUsuarioBean.usuarioSelecionado.nome}?"
+				widgetVar="confirmacaoExclusaoUsuario" id="confirmacaoExclusaoDialog">
+				<p:button value="Não" onclick="confirmacaoExclusaoUsuario.hide(); return false;"/>
+				<p:commandButton value="Sim" oncomplete="confirmacaoExclusaoUsuario.hide();"
+					action="#{pesquisaUsuarioBean.excluir}" process="@this"
+	    			update=":frmConsulta:usuariosTable" />
+			</p:confirmDialog>
         </h:form>
     </ui:define>
 </ui:composition>

@@ -9,6 +9,13 @@ import javax.interceptor.InvocationContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+/**
+ * Classe que intercepta métodos com a anotação @Transactional (Obtida de referencia)
+ * 
+ * @author alex
+ *
+ */
+
 @Interceptor
 @Transactional
 public class TransactionInterceptor implements Serializable {

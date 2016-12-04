@@ -12,6 +12,7 @@ public class JsfExceptionHandlerFactory extends ExceptionHandlerFactory {
 	}
 	
 	@Override
+	// Transfere a responsabilidade p/ a classe implementada para tratamento de ViewExpiredException do projeto
 	public ExceptionHandler getExceptionHandler() {
 		return new JsfExceptionHandler(parent.getExceptionHandler());
 	}

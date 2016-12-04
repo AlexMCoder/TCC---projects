@@ -15,12 +15,12 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import com.projeto.pedidovenda.model.Produto;
-import com.projeto.pedidovenda.repository.filter.ProdutoFilter;
+import com.projeto.pedidovenda.model.Usuario;
+import com.projeto.pedidovenda.repository.filter.UsuarioFilter;
 import com.projeto.pedidovenda.service.NegocioException;
 import com.projeto.util.jpa.Transactional;
 
-public class Produtos implements Serializable {
+public class Usuarios implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -30,11 +30,12 @@ public class Produtos implements Serializable {
 	/**
 	 * Metodo "merge" do EntityManager insere ou atualiza;
 	 * 
-	 * @param produto
-	 * @return instancia do produto persistido
+	 * @param usuario
+	 * @return instancia do usuario persistido
 	 */
-	public Produto guardar(Produto produto) {
-		return manager.merge(produto);
+	public Usuario guardar(Usuario usuario) {
+		return manager.merge(usuario);
+
 	}
 
 	/**
@@ -42,29 +43,29 @@ public class Produtos implements Serializable {
 	 * remoção /"flush" executa pendencias de execução (remove) / em caso de
 	 * erro na persistencia (flush) como FK por exemplo lança NegocioException
 	 * 
-	 * @param produto
+	 * @param usuario
 	 */
 	@Transactional
-	public void remover(Produto produto) {
+	public void remover(Usuario usuario) {
 		try {
-			produto = porId(produto.getId());
-			manager.remove(produto);
+			usuario = porId(usuario.getId());
+			manager.remove(usuario);
 			manager.flush();
 		} catch (PersistenceException e) {
-			throw new NegocioException("Produto não pode ser excluído.");
+			throw new NegocioException("Usuário não pode ser excluído.");
 		}
 	}
 
 	/**
-	 * Metodo verifica se o SKU já existe
+	 * Metodo verifica se o EMAIL já existe
 	 * 
-	 * @param sku
-	 * @return null
+	 * @param email
+	 * @return usuario
 	 */
-	public Produto porSku(String sku) {
+	public Usuario porEmail(String email) {
 		try {
-			return manager.createQuery("from Produto where upper(sku) = :sku", Produto.class)
-					.setParameter("sku", sku.toUpperCase()).getSingleResult();
+			return manager.createQuery("from Usuario where upper(email) = :email", Usuario.class)
+					.setParameter("email", email.toUpperCase()).getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		}
@@ -81,15 +82,16 @@ public class Produtos implements Serializable {
 	 * necessario pois a list retornada não está tipada
 	 * 
 	 * @param filtro
-	 * @return criteria com lista de produtos em ordem ascendente (nome)
+	 * @return criteria com lista de usuários em ordem ascendente (nome)
 	 */
-	@SuppressWarnings("unchecked")
-	public List<Produto> filtrados(ProdutoFilter filtro) {
-		Session session = manager.unwrap(Session.class);
-		Criteria criteria = session.createCriteria(Produto.class);
 
-		if (StringUtils.isNotBlank(filtro.getSku())) {
-			criteria.add(Restrictions.eq("sku", filtro.getSku()));
+	@SuppressWarnings("unchecked")
+	public List<Usuario> filtrados(UsuarioFilter filtro) {
+		Session session = manager.unwrap(Session.class);
+		Criteria criteria = session.createCriteria(Usuario.class);
+
+		if (StringUtils.isNotBlank(filtro.getEmail())) {
+			criteria.add(Restrictions.eq("email", filtro.getEmail()));
 		}
 
 		if (StringUtils.isNotBlank(filtro.getNome())) {
@@ -99,7 +101,13 @@ public class Produtos implements Serializable {
 		return criteria.addOrder(Order.asc("nome")).list();
 	}
 
-	public Produto porId(Long id) {
-		return manager.find(Produto.class, id);
+	public Usuario porId(Long id) {
+		return manager.find(Usuario.class, id);
 	}
+
+	public List<Usuario> vendedores() {
+		// TODO filtrar apenas vendedores (por um grupo específico)
+		return this.manager.createQuery("from Usuario", Usuario.class).getResultList();
+	}
+
 }

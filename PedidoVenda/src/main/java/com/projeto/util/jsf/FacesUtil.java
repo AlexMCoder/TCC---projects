@@ -5,6 +5,12 @@ import javax.faces.context.FacesContext;
 
 public class FacesUtil {
 
+	/*
+	 * Verifica se é o contexto é Postback (quanto a página inteira e seus
+	 * conteúdo são enviados para o servidor para processamento de algumas
+	 * informações e, em seguida, o servidor mostra a mesma página de volta ao
+	 * navegador.
+	 */
 	public static boolean isPostback() {
 		return FacesContext.getCurrentInstance().isPostback();
 	}

@@ -2,26 +2,26 @@ package com.projeto.pedidovenda.repository.filter;
 
 import java.io.Serializable;
 
-import validation.SKU;
+import org.hibernate.validator.constraints.Email;
 
-public class ProdutoFilter implements Serializable {
+public class UsuarioFilter implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	private String sku;
+	
+	private String email;
 	private String nome;
 
-	@SKU
-	public String getSku() {
-		return sku;
+	@Email
+	public String getEmail() {
+		return email;
 	}
 
 	/**
 	 * Metodo com operador condicional ternário
 	 * @param sku
 	 */
-	public void setSku(String sku) {
-		this.sku = sku == null ? null : sku.toUpperCase();
+	public void setEmail(String email) {
+		this.email = email == null ? null : email.toUpperCase();
 	}
 
 	public String getNome() {

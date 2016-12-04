@@ -5,6 +5,11 @@
  */
 package com.projeto.util.cdi;
 
+/* Classe de referencia (https://gist.github.com/mariofts/d6d63871aacd65d9ebad) 
+ * que retorna a instancia de uma classe (getBean) no contexto do CDI,
+ * solucionando o problema da falta de @Inject em conversores JSF 
+ */
+
 import java.util.Set;
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.Bean;

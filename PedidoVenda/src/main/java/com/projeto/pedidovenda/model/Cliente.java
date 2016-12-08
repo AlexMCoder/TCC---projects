@@ -18,7 +18,13 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.br.CPF;
+
+import validation.DocumentoFederal;
+
+/**
+ * @author alex
+ *
+ */
 
 @Entity
 @Table(name = "cliente")
@@ -34,7 +40,7 @@ public class Cliente implements Serializable {
 	private String documentoReceitaFederal;
 	private TipoPessoa tipo;
 	private List<Endereco> enderecos = new ArrayList<>();
-	
+
 	@Id
 	@GeneratedValue
 	public Long getId() {
@@ -44,7 +50,7 @@ public class Cliente implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	@NotBlank
 	@Size(max = 80)
 	@Column(nullable = false, length = 100)
@@ -55,7 +61,7 @@ public class Cliente implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	@Email
 	@NotNull
 	@Size(max = 255)
@@ -83,8 +89,8 @@ public class Cliente implements Serializable {
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
-	
-	@CPF
+
+	@DocumentoFederal // @CPF(message = "inválido")
 	@NotNull
 	@Size(max = 18)
 	@Column(name = "doc_receita_federal", nullable = false, length = 18)
@@ -95,8 +101,8 @@ public class Cliente implements Serializable {
 	public void setDocumentoReceitaFederal(String documentoReceitaFederal) {
 		this.documentoReceitaFederal = documentoReceitaFederal;
 	}
-	
-	@NotNull 
+
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 10)
 	public TipoPessoa getTipo() {
@@ -106,8 +112,8 @@ public class Cliente implements Serializable {
 	public void setTipo(TipoPessoa tipo) {
 		this.tipo = tipo;
 	}
-	
-	@NotNull @Size(min = 1)
+
+	//@NotNull @Size(min = 1)
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	public List<Endereco> getEnderecos() {
 		return enderecos;

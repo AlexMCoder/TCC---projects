@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name = "endereco")
 public class Endereco implements Serializable {
@@ -20,12 +22,13 @@ public class Endereco implements Serializable {
 	private Long id;
 	private String logradouro;
 	private String numero;
+	private String bairro;
 	private String complemento;
 	private String cidade;
 	private String uf;
 	private String cep;
 	private Cliente cliente;
-
+	
 	@Id
 	@GeneratedValue
 	public Long getId() {
@@ -35,18 +38,18 @@ public class Endereco implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	@NotNull
+	
+	@NotBlank
 	@Column(nullable = false, length = 150)
 	public String getLogradouro() {
 		return logradouro;
 	}
-
+	
 	public void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
 	}
 	
-	@NotNull
+	@NotBlank
 	@Column(nullable = false, length = 20)
 	public String getNumero() {
 		return numero;
@@ -55,8 +58,17 @@ public class Endereco implements Serializable {
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
+	
+	@NotBlank
+	@Column(nullable = false, length = 150)
+	public String getBairro() {
+		return bairro;
+	}
 
-	@NotNull	
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
 	@Column(length = 150)
 	public String getComplemento() {
 		return complemento;
@@ -65,8 +77,8 @@ public class Endereco implements Serializable {
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
-
-	@NotNull
+	
+	@NotBlank
 	@Column(nullable = false, length = 60)
 	public String getCidade() {
 		return cidade;
@@ -75,8 +87,8 @@ public class Endereco implements Serializable {
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
-
-	@NotNull
+	
+	@NotBlank
 	@Column(nullable = false, length = 60)
 	public String getUf() {
 		return uf;
@@ -85,8 +97,8 @@ public class Endereco implements Serializable {
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
-
-	@NotNull
+	
+	@NotBlank
 	@Column(nullable = false, length = 9)
 	public String getCep() {
 		return cep;
@@ -95,8 +107,7 @@ public class Endereco implements Serializable {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-
-	@NotNull
+	
 	@ManyToOne
 	@JoinColumn(name = "cliente_id", nullable = false)
 	public Cliente getCliente() {
@@ -127,7 +138,7 @@ public class Endereco implements Serializable {
 		if (id == null) {
 			if (other.id != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (id.equals(other.id))
 			return false;
 		return true;
 	}

@@ -28,7 +28,7 @@ public class Endereco implements Serializable {
 	private String uf;
 	private String cep;
 	private Cliente cliente;
-	
+
 	@Id
 	@GeneratedValue
 	public Long getId() {
@@ -38,17 +38,17 @@ public class Endereco implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	@NotBlank
 	@Column(nullable = false, length = 150)
 	public String getLogradouro() {
 		return logradouro;
 	}
-	
+
 	public void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
 	}
-	
+
 	@NotBlank
 	@Column(nullable = false, length = 20)
 	public String getNumero() {
@@ -58,7 +58,7 @@ public class Endereco implements Serializable {
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
-	
+
 	@NotBlank
 	@Column(nullable = false, length = 150)
 	public String getBairro() {
@@ -77,7 +77,7 @@ public class Endereco implements Serializable {
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
-	
+
 	@NotBlank
 	@Column(nullable = false, length = 60)
 	public String getCidade() {
@@ -87,7 +87,7 @@ public class Endereco implements Serializable {
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
-	
+
 	@NotBlank
 	@Column(nullable = false, length = 60)
 	public String getUf() {
@@ -97,7 +97,7 @@ public class Endereco implements Serializable {
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
-	
+
 	@NotBlank
 	@Column(nullable = false, length = 9)
 	public String getCep() {
@@ -107,7 +107,7 @@ public class Endereco implements Serializable {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	
+
 	@ManyToOne
 	@JoinColumn(name = "cliente_id", nullable = false)
 	public Cliente getCliente() {

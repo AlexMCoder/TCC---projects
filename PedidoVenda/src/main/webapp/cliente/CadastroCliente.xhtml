@@ -56,6 +56,14 @@
 					<p:inputMask id="cpfCnpj" mask="99999999999?999"
 						value="#{cadastroClienteBean.cliente.documentoReceitaFederal}" />
 
+					<p:outputLabel value="Telefone" for="telefone" />
+					<p:inputMask id="telefone" mask="(99) 9999-9999? x9999"
+						value="#{cadastroClienteBean.cliente.telefone}" />
+
+					<p:outputLabel value="Celular" for="celular" />
+					<p:inputMask id="celular" mask="(99) 9999-9999"
+						value="#{cadastroClienteBean.cliente.celular}" />
+
 					<p:outputLabel value="E-mail" for="email" />
 					<p:inputText id="email" size="40" maxlength="255"
 						value="#{cadastroClienteBean.cliente.email}" />
@@ -114,6 +122,9 @@
 						<p:outputLabel value="Número" />
 						<p:inputText size="6" style="margin-left: 20px"
 							value="#{cadastroClienteBean.endereco.numero}" />
+						<p:outputLabel value="Bairro" for="bairro" />
+						<p:inputText id="bairro" size="40" style="margin-left: 20px"
+							value="#{cadastroClienteBean.endereco.bairro}" />
 						<p:outputLabel value="Complemento" />
 						<p:inputText size="20" style="margin-left: 20px"
 							value="#{cadastroClienteBean.endereco.complemento}" />

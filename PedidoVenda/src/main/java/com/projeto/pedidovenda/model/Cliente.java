@@ -63,7 +63,7 @@ public class Cliente implements Serializable {
 	}
 
 	@Email
-	@NotNull
+	@NotBlank
 	@Size(max = 255)
 	@Column(nullable = false, length = 255)
 	public String getEmail() {
@@ -74,6 +74,9 @@ public class Cliente implements Serializable {
 		this.email = email;
 	}
 
+	@NotBlank
+	@Size(max = 20)
+	@Column(nullable = false, length = 20)
 	public String getTelefone() {
 		return telefone;
 	}

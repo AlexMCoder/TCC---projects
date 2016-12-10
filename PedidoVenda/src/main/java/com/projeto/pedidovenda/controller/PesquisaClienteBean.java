@@ -1,34 +1,65 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.projeto.pedidovenda.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+
+import com.projeto.pedidovenda.model.Cliente;
+import com.projeto.pedidovenda.repository.Clientes;
+import com.projeto.pedidovenda.repository.filter.ClienteFilter;
+import com.projeto.util.jsf.FacesUtil;
+
+/**
+ * @author alex
+ */
 
 @Named
 @ViewScoped
-public class PesquisaClienteBean implements Serializable{
+public class PesquisaClienteBean implements Serializable {
 
-        private static final long serialVersionUID = 1L;
-    
-	private List<Integer> pedidosFiltrados;
-	
+	private static final long serialVersionUID = 1L;
+
+	@Inject
+	private Clientes clientes;
+
+	private ClienteFilter filtro;
+
+	private List<Cliente> clientesFiltrados;
+
+	private Cliente clienteSelecionado;
+
 	public PesquisaClienteBean() {
-		pedidosFiltrados = new ArrayList<>();
-		for (int i = 0; i < 3; i++) {
-			pedidosFiltrados.add(i);
-		}
+		filtro = new ClienteFilter();
 	}
 
-	public List<Integer> getPedidosFiltrados() {
-		return pedidosFiltrados;
+	public void excluir() {
+		clientes.remover(clienteSelecionado);
+		clientesFiltrados.remove(clienteSelecionado);
+
+		FacesUtil.addInfoMessage("Cliente " + clienteSelecionado.getNome() + " excluído com sucesso.");
 	}
-	
+
+	public void pesquisar() {
+		clientesFiltrados = clientes.filtrados(filtro);
+	}
+
+	public List<Cliente> getClientesFiltrados() {
+		return clientesFiltrados;
+	}
+
+	public ClienteFilter getFiltro() {
+		return filtro;
+	}
+
+	public Cliente getClienteSelecionado() {
+		return clienteSelecionado;
+	}
+
+	public void setClienteSelecionado(Cliente clienteSelecionado) {
+		this.clienteSelecionado = clienteSelecionado;
+	}
+
 }

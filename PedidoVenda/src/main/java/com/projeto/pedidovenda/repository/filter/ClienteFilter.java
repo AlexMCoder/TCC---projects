@@ -2,20 +2,28 @@ package com.projeto.pedidovenda.repository.filter;
 
 import java.io.Serializable;
 
+//import com.cqi.controls.validation.DocumentoFederal;
+
+/**
+ * 
+ * @author alex
+ *
+ */
 public class ClienteFilter implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private String documentoReceitaFederal;
 	private String nome;
 
-	//@DocumentoFederal
+	// @DocumentoFederal
 	public String getDocumentoReceitaFederal() {
 		return documentoReceitaFederal;
 	}
 
 	/**
 	 * Metodo com operador condicional ternário
+	 * 
 	 * @param documentoReceitaFederal
 	 */
 	public void setDocumentoReceitaFederal(String documentoReceitaFederal) {

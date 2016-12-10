@@ -16,7 +16,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import com.projeto.pedidovenda.model.Cliente;
-import com.projeto.pedidovenda.repository.filter.UsuarioFilter;
+import com.projeto.pedidovenda.repository.filter.ClienteFilter;
 import com.projeto.pedidovenda.service.NegocioException;
 import com.projeto.util.jpa.Transactional;
 
@@ -32,7 +32,7 @@ public class Clientes implements Serializable {
 	private EntityManager manager;
 
 	/**
-	 * Metodo "merge" do EntityManager insere ou atualiza;
+	 * Metodo verifica se o documentoReceitaFederal já existe
 	 * 
 	 * @param usuario
 	 * @return instancia do usuario persistido
@@ -107,6 +107,23 @@ public class Clientes implements Serializable {
 	 * 
 	 * return criteria.addOrder(Order.asc("nome")).list(); }
 	 */
+
+	@SuppressWarnings("unchecked")
+	public List<Cliente> filtrados(ClienteFilter filtro) {
+		Session session = manager.unwrap(Session.class);
+		Criteria criteria = session.createCriteria(Cliente.class);
+
+		if (StringUtils.isNotBlank(filtro.getDocumentoReceitaFederal())) {
+			criteria.add(Restrictions.ilike("documentoReceitaFederal", filtro.getDocumentoReceitaFederal(),
+					MatchMode.ANYWHERE));
+		}
+
+		if (StringUtils.isNotBlank(filtro.getNome())) {
+			criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
+		}
+
+		return criteria.addOrder(Order.asc("nome")).list();
+	}
 
 	public Cliente porId(Long id) {
 		return manager.find(Cliente.class, id);

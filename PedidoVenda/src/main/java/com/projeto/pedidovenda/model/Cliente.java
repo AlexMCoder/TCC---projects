@@ -93,10 +93,10 @@ public class Cliente implements Serializable {
 		this.celular = celular;
 	}
 
-	@DocumentoFederal // @CPF(message = "inválido")
+	@DocumentoFederal // @CPF
 	@NotNull
 	@Size(max = 18)
-	@Column(name = "doc_receita_federal", nullable = false, length = 18)
+	@Column(name = "doc_receita_federal", nullable = false, length = 18, unique = true)
 	public String getDocumentoReceitaFederal() {
 		return documentoReceitaFederal;
 	}
@@ -116,7 +116,7 @@ public class Cliente implements Serializable {
 		this.tipo = tipo;
 	}
 
-	//@NotNull @Size(min = 1)
+	// @NotNull @Size(min = 1)
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	public List<Endereco> getEnderecos() {
 		return enderecos;

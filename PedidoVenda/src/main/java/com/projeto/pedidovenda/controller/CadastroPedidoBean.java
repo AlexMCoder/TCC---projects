@@ -13,15 +13,22 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.projeto.pedidovenda.model.Cliente;
 import com.projeto.pedidovenda.model.EnderecoEntrega;
 import com.projeto.pedidovenda.model.FormaPagamento;
+import com.projeto.pedidovenda.model.ItemPedido;
 import com.projeto.pedidovenda.model.Pedido;
+import com.projeto.pedidovenda.model.Produto;
 import com.projeto.pedidovenda.model.Usuario;
 import com.projeto.pedidovenda.repository.Clientes;
+import com.projeto.pedidovenda.repository.Produtos;
 import com.projeto.pedidovenda.repository.Usuarios;
 import com.projeto.pedidovenda.service.CadastroPedidoService;
 import com.projeto.util.jsf.FacesUtil;
+
+import validation.SKU;
 
 /**
  * @author Alex
@@ -41,10 +48,17 @@ public class CadastroPedidoBean implements Serializable {
 	private Clientes clientes;
 
 	@Inject
+	private Produtos produtos;
+	
+	@Inject
 	private CadastroPedidoService cadastroPedidoService;
+	
+	private String sku;
 
 	private Pedido pedido;
 	private List<Usuario> vendedores;
+	
+	private Produto produtoLinhaEditavel;
 
 	public CadastroPedidoBean() {
 		limpar();
@@ -53,7 +67,9 @@ public class CadastroPedidoBean implements Serializable {
 	public void inicializar() {
 		if (FacesUtil.isNotPostback()) {
 			this.vendedores = this.usuarios.vendedores();
-			
+
+			this.pedido.adicionarItemVazio();
+
 			this.recalcularPedido();
 		}
 	}
@@ -75,6 +91,49 @@ public class CadastroPedidoBean implements Serializable {
 		}
 	}
 
+	public void carregarProdutoPorSku() {
+		if (StringUtils.isNotEmpty(this.sku)) {
+			this.produtoLinhaEditavel = this.produtos.porSku(this.sku);
+			this.carregarProdutoLinhaEditavel();
+		}
+	}
+
+	public void carregarProdutoLinhaEditavel() {
+		ItemPedido item = this.pedido.getItens().get(0);
+
+		if (this.produtoLinhaEditavel != null) {
+			if (this.existeItemComProduto(this.produtoLinhaEditavel)) {
+				FacesUtil.addErrorMessage("Já existe um item no pedido com o produto informado.");
+			} else {
+				item.setProduto(this.produtoLinhaEditavel);
+				item.setValorUnitario(this.produtoLinhaEditavel.getValorUnitario());
+
+				this.pedido.adicionarItemVazio();
+				this.produtoLinhaEditavel = null;
+				this.sku = null;
+
+				this.pedido.recalcularValorTotal();
+			}
+		}
+	}
+
+	private boolean existeItemComProduto(Produto produto) {
+		boolean existeItem = false;
+
+		for (ItemPedido item : this.getPedido().getItens()) {
+			if (produto.equals(item.getProduto())) {
+				existeItem = true;
+				break;
+			}
+		}
+
+		return existeItem;
+	}
+
+	public List<Produto> completarProduto(String nome) {
+		return this.produtos.porNome(nome);
+	}
+
 	public FormaPagamento[] getFormasPagamento() {
 		return FormaPagamento.values();
 	}
@@ -93,6 +152,23 @@ public class CadastroPedidoBean implements Serializable {
 
 	public List<Usuario> getVendedores() {
 		return vendedores;
+	}
+
+	public Produto getProdutoLinhaEditavel() {
+		return produtoLinhaEditavel;
+	}
+
+	public void setProdutoLinhaEditavel(Produto produtoLinhaEditavel) {
+		this.produtoLinhaEditavel = produtoLinhaEditavel;
+	}
+
+	@SKU
+	public String getSku() {
+		return sku;
+	}
+
+	public void setSku(String sku) {
+		this.sku = sku;
 	}
 
 	public boolean isEditando() {

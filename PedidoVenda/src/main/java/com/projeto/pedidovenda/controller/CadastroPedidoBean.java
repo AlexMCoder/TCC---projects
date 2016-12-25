@@ -49,15 +49,15 @@ public class CadastroPedidoBean implements Serializable {
 
 	@Inject
 	private Produtos produtos;
-	
+
 	@Inject
 	private CadastroPedidoService cadastroPedidoService;
-	
+
 	private String sku;
 
 	private Pedido pedido;
 	private List<Usuario> vendedores;
-	
+
 	private Produto produtoLinhaEditavel;
 
 	public CadastroPedidoBean() {
@@ -128,6 +128,18 @@ public class CadastroPedidoBean implements Serializable {
 		}
 
 		return existeItem;
+	}
+
+	public void atualizarQuantidade(ItemPedido item, int linha) {
+		if (item.getQuantidade() < 1) {
+			if (linha == 0) {
+				item.setQuantidade(1);
+			} else {
+				this.getPedido().getItens().remove(linha);
+			}
+		}
+
+		this.pedido.recalcularValorTotal();
 	}
 
 	public List<Produto> completarProduto(String nome) {

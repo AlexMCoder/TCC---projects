@@ -263,4 +263,9 @@ public class Pedido implements Serializable {
 		return this.getValorTotal().compareTo(BigDecimal.ZERO) < 0;
 	}
 
+	@Transient
+	public boolean isEmitido() {
+		return StatusPedido.EMITIDO.equals(this.getStatus());
+	}
+
 }

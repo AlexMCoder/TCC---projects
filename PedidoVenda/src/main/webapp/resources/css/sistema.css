@@ -116,3 +116,7 @@ h1 {
     margin-top: 6px!important;
 }
 /* Menu sistema fim */
+
+.ui-state-disabled {
+	opacity: .80 !important;
+}

@@ -293,4 +293,14 @@ public class Pedido implements Serializable {
 		return !this.isCancelavel();
 	}
 
+	@Transient
+	public boolean isAlteravel() {
+		return this.isOrcamento();
+	}
+
+	@Transient
+	public boolean isNaoAlteravel() {
+		return !this.isAlteravel();
+	}
+
 }

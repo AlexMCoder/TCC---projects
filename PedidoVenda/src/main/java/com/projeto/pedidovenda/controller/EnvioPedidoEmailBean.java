@@ -23,24 +23,21 @@ public class EnvioPedidoEmailBean implements Serializable {
 
 	@Inject
 	private Mailer mailer;
-	
+
 	@Inject
 	@PedidoEdicao
 	private Pedido pedido;
-	
+
 	public void enviarPedido() {
 		MailMessage message = mailer.novaMensagem();
-		
+
 		message.to(this.pedido.getCliente().getEmail())
-			.subject("Pedido " + this.pedido.getId())
-			.bodyHtml(new VelocityTemplate(getClass().getResourceAsStream("/emails/pedido.template")))
-			.put("pedido", this.pedido)
-			.put("numberTool", new NumberTool())
-			.put("locale", new Locale("pt", "BR"))
-			.send();
-		
+				.subject("Pedido " + this.pedido.getId())
+				.bodyHtml(new VelocityTemplate(getClass().getResourceAsStream("/emails/pedido.template")))
+				.put("pedido", this.pedido).put("numberTool", new NumberTool()).put("locale", new Locale("pt", "BR"))
+				.send();
+
 		FacesUtil.addInfoMessage("Pedido enviado por e-mail com sucesso!");
 	}
-	
-	
+
 }

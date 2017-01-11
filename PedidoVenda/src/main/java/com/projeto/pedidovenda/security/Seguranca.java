@@ -47,5 +47,24 @@ public class Seguranca {
 	public boolean isCancelarPedidoPermitido() {
 		return externalContext.isUserInRole("ADMINISTRADORES") || externalContext.isUserInRole("VENDEDORES");
 	}
+	public boolean isSalvarClientePermitido() {
+		return externalContext.isUserInRole("ADMINISTRADORES") 
+				|| externalContext.isUserInRole("VENDEDORES");
+	}
+	
+	public boolean isExcluirClientePermitido() {
+		return externalContext.isUserInRole("ADMINISTRADORES") 
+				|| externalContext.isUserInRole("VENDEDORES");
+	}
+	
+	public boolean isCriarClientePermitido() {
+		return externalContext.isUserInRole("ADMINISTRADORES") 
+				|| externalContext.isUserInRole("VENDEDORES");
+	}
+	
+	public boolean isEditarClientePermitido() {
+		return externalContext.isUserInRole("ADMINISTRADORES") 
+				|| externalContext.isUserInRole("VENDEDORES");
+	}
 
 }

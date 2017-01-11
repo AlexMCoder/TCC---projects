@@ -42,6 +42,9 @@
 		<intercept-url pattern="/pedidos/**"
 			access="hasAnyRole('VENDEDORES', 'AUXILIARES', 'ADMINISTRADORES')" />
 		<intercept-url pattern="/produtos/**" access="hasAnyRole('ADMINISTRADORES')" />
+		<intercept-url pattern="/usuario/**" access="hasAnyRole('ADMINISTRADORES')" />
+		<intercept-url pattern="/cliente/**"
+			access="hasAnyRole('VENDEDORES', 'AUXILIARES', 'ADMINISTRADORES')" />
 		<intercept-url pattern="/**" access="denyAll" />
 
 		<form-login login-page="/Login.xhtml"

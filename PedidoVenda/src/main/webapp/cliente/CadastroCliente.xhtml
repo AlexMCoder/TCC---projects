@@ -38,7 +38,7 @@
 					<p:button value="Novo" outcome="/cliente/CadastroCliente" />
 					<p:commandButton value="Salvar" id="botaoSalvar"
 						update="msgCliente frm" action="#{cadastroClienteBean.salvar}"
-						process="@this inclusaoClientePanel" />
+						process="@this inclusaoClientePanel" disabled="#{not seguranca.salvarClientePermitido}"/>
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
 					<p:button value="Consultar" outcome="/cliente/PesquisaCliente" />
@@ -52,36 +52,41 @@
 
 					<p:outputLabel value="Nome" for="nome" />
 					<p:inputText id="nome" size="60" maxlength="80"
-						value="#{cadastroClienteBean.cliente.nome}" />
+						value="#{cadastroClienteBean.cliente.nome}" disabled="#{not seguranca.editarClientePermitido}"/>
 
 					<p:outputLabel value="Tipo pessoa" for="tipo" />
 					<p:selectOneRadio id="tipo" styleClass="sem-borda"
-						layout="lineDirection" value="#{cadastroClienteBean.cliente.tipo}">
+						layout="lineDirection" value="#{cadastroClienteBean.cliente.tipo}"
+						disabled="#{not seguranca.editarClientePermitido}">
 						<f:selectItem itemLabel="Fisica" itemValue="FISICA" />
 						<f:selectItem itemLabel="Juridica" itemValue="JURIDICA" />
 					</p:selectOneRadio>
 
 					<p:outputLabel value="CPF/CNPJ" for="cpfCnpj" />
 					<p:inputMask id="cpfCnpj" mask="99999999999?999"
-						value="#{cadastroClienteBean.cliente.documentoReceitaFederal}" />
+						value="#{cadastroClienteBean.cliente.documentoReceitaFederal}" 
+						disabled="#{not seguranca.editarClientePermitido}"/>
 
 					<p:outputLabel value="Telefone" for="telefone" />
 					<p:inputMask id="telefone" mask="(99) 9999-9999? x9999"
-						value="#{cadastroClienteBean.cliente.telefone}" />
+						value="#{cadastroClienteBean.cliente.telefone}" 
+						disabled="#{not seguranca.editarClientePermitido}"/>
 
 					<p:outputLabel value="Celular" for="celular" />
 					<p:inputMask id="celular" mask="(99) 9999-9999"
-						value="#{cadastroClienteBean.cliente.celular}" />
+						value="#{cadastroClienteBean.cliente.celular}" 
+						disabled="#{not seguranca.editarClientePermitido}"/>
 
 					<p:outputLabel value="E-mail" for="email" />
 					<p:inputText id="email" size="40" maxlength="255"
-						value="#{cadastroClienteBean.cliente.email}" />
+						value="#{cadastroClienteBean.cliente.email}" 
+						disabled="#{not seguranca.editarClientePermitido}"/>
 				</p:panelGrid>
 			</h:panelGroup>
 
 			<p:commandButton value="Adicionar endereço"
 				onclick="inclusaoEnderecoDialog.show(); return false;"
-				style="margin-top: 20px" />
+				style="margin-top: 20px" disabled="#{not seguranca.editarClientePermitido}"/>
 
 			<p:dataTable id="enderecosTable"
 				value="#{consultaEnderecosBean.enderecosFiltrados}"
@@ -104,9 +109,11 @@
 					<h:outputText value="Londrina/PR" />
 				</p:column>
 				<p:column style="width: 100px; text-align: center">
-					<p:button icon="ui-icon-pencil" title="Editar" />
+					<p:button icon="ui-icon-pencil" title="Editar" 
+					disabled="#{not seguranca.editarClientePermitido}"/>
 					<p:commandButton icon="ui-icon-trash" title="Excluir"
-						oncomplete="confirmacaoExclusaoEndereco.show()" />
+						oncomplete="confirmacaoExclusaoEndereco.show()" 
+						disabled="#{not seguranca.editarClientePermitido}" />
 				</p:column>
 			</p:dataTable>
 

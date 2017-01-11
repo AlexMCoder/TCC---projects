@@ -20,7 +20,7 @@
 						action="#{pesquisaClienteBean.pesquisar}" update="frmConsulta" />
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
-					<p:button value="Novo" outcome="/cliente/CadastroCliente" />
+					<p:button value="Novo" outcome="/cliente/CadastroCliente" disabled="#{not seguranca.criarClientePermitido}"/>
 				</p:toolbarGroup>
 			</p:toolbar>
 
@@ -58,7 +58,8 @@
 					</p:button>
 					<p:commandButton icon="ui-icon-trash" title="Excluir"
 						oncomplete="confirmacaoExclusaoCliente.show()" process="@this"
-						update=":frmConsulta:confirmacaoExclusaoDialog">
+						update=":frmConsulta:confirmacaoExclusaoDialog"
+						disabled="#{not seguranca.excluirClientePermitido}">
 						<f:setPropertyActionListener
 							target="#{pesquisaClienteBean.clienteSelecionado}"
 							value="#{cliente}" />

@@ -23,12 +23,6 @@ public class FacesProducer {
 	
 	@Produces
 	@RequestScoped
-	public HttpServletRequest getHttpServletRequest() {
-		return ((HttpServletRequest) getExternalContext().getRequest());	
-	}
-	
-	@Produces
-	@RequestScoped
 	public HttpServletResponse getHttpServletResponse() {
 		return ((HttpServletResponse) getExternalContext().getResponse());	
 	}

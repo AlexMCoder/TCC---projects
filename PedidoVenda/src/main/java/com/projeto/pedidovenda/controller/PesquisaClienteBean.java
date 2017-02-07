@@ -3,7 +3,7 @@ package com.projeto.pedidovenda.controller;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 

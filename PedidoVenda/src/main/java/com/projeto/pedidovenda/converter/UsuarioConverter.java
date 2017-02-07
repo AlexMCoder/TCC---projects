@@ -5,6 +5,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.projeto.pedidovenda.model.Usuario;
 import com.projeto.pedidovenda.repository.Usuarios;
 import com.projeto.util.cdi.CDIServiceLocator;
@@ -29,7 +31,7 @@ public class UsuarioConverter implements Converter {
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		Usuario retorno = null;
 
-		if (value != null) {
+		if (StringUtils.isNotEmpty(value)) {
 			Long id = new Long(value);
 			retorno = usuarios.porId(id);
 		}

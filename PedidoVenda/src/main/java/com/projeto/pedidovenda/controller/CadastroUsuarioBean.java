@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -87,10 +87,10 @@ public class CadastroUsuarioBean implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-		
-		/*if (this.usuario != null){
-			this.grupo = this.usuario.getGrupos();
-		}*/
+
+		/*
+		 * if (this.usuario != null){ this.grupo = this.usuario.getGrupos(); }
+		 */
 	}
 
 	public Grupo getGrupo() {
@@ -112,7 +112,7 @@ public class CadastroUsuarioBean implements Serializable {
 	public List<Grupo> getListaGrupos() {
 		return listaGrupos;
 	}
-	
+
 	public boolean isEditando() {
 		return this.usuario.getId() != null;
 	}

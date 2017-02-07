@@ -3,19 +3,18 @@ package com.projeto.pedidovenda.controller;
 import com.projeto.pedidovenda.model.Categoria;
 import java.io.Serializable;
 
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import com.projeto.pedidovenda.model.Produto;
 import com.projeto.pedidovenda.repository.Categorias;
 import com.projeto.pedidovenda.service.CadastroProdutoService;
+import com.projeto.pedidovenda.service.NegocioException;
 import com.projeto.util.jsf.FacesUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import javax.validation.constraints.NotNull;
 
 @Named
@@ -40,14 +39,15 @@ public class CadastroProdutoBean implements Serializable {
 		limpar();
 	}
 
-	@PostConstruct
 	public void inicializar() {
-		if (FacesUtil.isNotPostback()) {
-			categoriasRaizes = categorias.raizes();
+		if (this.produto == null) {
+			limpar();
+		}
 
-			if (this.categoriaPai != null) {
-				carregarSubcategorias();
-			}
+		categoriasRaizes = categorias.raizes();
+
+		if (this.categoriaPai != null) {
+			carregarSubcategorias();
 		}
 	}
 
@@ -62,10 +62,14 @@ public class CadastroProdutoBean implements Serializable {
 	}
 
 	public void salvar() {
-		this.produto = cadastroProdutoService.salvar(this.produto);
-		limpar();
+		try {
+			this.produto = cadastroProdutoService.salvar(this.produto);
+			limpar();
 
-		FacesUtil.addInfoMessage("Produto salvo com sucesso!");
+			FacesUtil.addInfoMessage("Produto salvo com sucesso!");
+		} catch (NegocioException ne) {
+			FacesUtil.addErrorMessage(ne.getMessage());
+		}
 	}
 
 	public Produto getProduto() {

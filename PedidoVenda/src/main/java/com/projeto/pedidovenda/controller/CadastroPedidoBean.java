@@ -11,7 +11,7 @@ import java.util.List;
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Produces;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -69,13 +69,15 @@ public class CadastroPedidoBean implements Serializable {
 	}
 
 	public void inicializar() {
-		if (FacesUtil.isNotPostback()) {
-			this.vendedores = this.usuarios.vendedores();
-
-			this.pedido.adicionarItemVazio();
-
-			this.recalcularPedido();
+		if (this.pedido == null) {
+			limpar();
 		}
+
+		this.vendedores = this.usuarios.vendedores();
+
+		this.pedido.adicionarItemVazio();
+
+		this.recalcularPedido();
 	}
 
 	private void limpar() {

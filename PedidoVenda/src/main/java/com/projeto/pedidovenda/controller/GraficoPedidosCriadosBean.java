@@ -10,8 +10,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.LineChartModel;
 
 import com.projeto.pedidovenda.model.Usuario;
 import com.projeto.pedidovenda.repository.Pedidos;
@@ -23,37 +25,42 @@ import com.projeto.pedidovenda.security.UsuarioSistema;
 public class GraficoPedidosCriadosBean {
 
 	private static DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM");
-
+	
 	@Inject
 	private Pedidos pedidos;
-
+	
 	@Inject
 	@UsuarioLogado
 	private UsuarioSistema usuarioLogado;
-
-	private CartesianChartModel model;
+	
+	private LineChartModel model;
 
 	public void preRender() {
-		this.model = new CartesianChartModel();
-
+		this.model = new LineChartModel();
+		this.model.setTitle("Pedidos criados");
+		this.model.setLegendPosition("e");
+		this.model.setAnimate(true);
+		
+		this.model.getAxes().put(AxisType.X, new CategoryAxis());
+		
 		adicionarSerie("Todos os pedidos", null);
 		adicionarSerie("Meus pedidos", usuarioLogado.getUsuario());
 	}
-
+	
 	private void adicionarSerie(String rotulo, Usuario criadoPor) {
-		Map<Date, BigDecimal> valoresPorData = this.pedidos.valoresTotaisPorData(30, criadoPor);
-
+		Map<Date, BigDecimal> valoresPorData = this.pedidos.valoresTotaisPorData(15, criadoPor);
+		
 		ChartSeries series = new ChartSeries(rotulo);
-
+		
 		for (Date data : valoresPorData.keySet()) {
 			series.set(DATE_FORMAT.format(data), valoresPorData.get(data));
 		}
-
+		
 		this.model.addSeries(series);
 	}
 
-	public CartesianChartModel getModel() {
+	public LineChartModel getModel() {
 		return model;
-	}
+}
 
 }

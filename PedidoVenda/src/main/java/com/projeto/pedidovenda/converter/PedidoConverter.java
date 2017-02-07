@@ -5,6 +5,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.projeto.pedidovenda.model.Pedido;
 import com.projeto.pedidovenda.repository.Pedidos;
 import com.projeto.util.cdi.CDIServiceLocator;
@@ -23,13 +25,14 @@ public class PedidoConverter implements Converter {
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		Pedido retorno = null;
 		
-		if (value != null) {
+		if (StringUtils.isNotEmpty(value)) {
 			Long id = new Long(value);
 			retorno = pedidos.porId(id);
 		}
 		
 		return retorno;
 	}
+	
 
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {

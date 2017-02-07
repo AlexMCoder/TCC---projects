@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:facet name="first">
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</f:facet>
+
+	<title>Layout</title>
+
+	<h:outputStylesheet name="css/custom.css" />
+	<h:outputStylesheet name="css/layout.css" />
+	<h:outputStylesheet name="css/components.css" />
+
+	<h:outputScript name="jquery/jquery.js" />
+	<h:outputScript name="js/app.js" />
+</h:head>
+
+<h:body>
+
+	<header class="aw-topbar">
+		<h:graphicImage name="images/primefaces.png" />
+
+		<a href="#" class="aw-toggle  js-toggle"><i class="fa  fa-bars"></i></a>
+	</header>
+
+	<aside class="aw-sidebar  js-sidebar">
+		<ui:include src="Menu.xhtml" />
+	</aside>
+
+	<section class="aw-content  js-content">
+		<ui:insert name="content" />
+	</section>
+
+</h:body>
+
+</html>

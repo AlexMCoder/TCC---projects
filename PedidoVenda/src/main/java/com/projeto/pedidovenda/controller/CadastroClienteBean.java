@@ -1,13 +1,16 @@
 package com.projeto.pedidovenda.controller;
  
 import java.io.Serializable;
+import java.util.ArrayList;
 
-import javax.faces.bean.ViewScoped;
+import javax.annotation.PostConstruct;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.projeto.pedidovenda.model.Cliente;
 import com.projeto.pedidovenda.model.Endereco;
+import com.projeto.pedidovenda.model.Usuario;
 import com.projeto.pedidovenda.service.CadastroClienteService;
 import com.projeto.util.jsf.FacesUtil;
 
@@ -24,10 +27,8 @@ public class CadastroClienteBean implements Serializable {
 	@Inject
 	private CadastroClienteService cadastroClienteService;
 	
-	@Inject
 	private Endereco endereco;
 	
-	@Inject
 	private Cliente cliente;
 	
 	private Endereco enderecoSelecionado;
@@ -35,16 +36,18 @@ public class CadastroClienteBean implements Serializable {
 	public CadastroClienteBean() {
 		limpar();
 	}
-
+	
 	private void limpar() {
 		cliente = new Cliente();
-		limparEndereco();
-	}
-	
-	private void limparEndereco() {
 		endereco = new Endereco();
 	}
-
+	
+	public void inicializar() {
+        if (cliente == null) {
+            limpar();
+        }  
+    }
+	
 	public void salvar() {
 		this.cliente = cadastroClienteService.salvar(this.cliente);
 		//limpar();

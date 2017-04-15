@@ -22,11 +22,21 @@
 </h:head>
 
 <h:body>
+	<p:ajaxStatus styleClass="ajax-status" onsuccess="configurarMoeda()">
+		<f:facet name="start">
+			<h:graphicImage library="images" name="loading.gif" />
+		</f:facet>
+		<f:facet name="complete">
+			<h:outputText value="" />
+		</f:facet>
+	</p:ajaxStatus>
 
 	<header class="aw-topbar">
-		<h:graphicImage name="images/primefaces.png" />
-
-		<a href="#" class="aw-toggle  js-toggle"><i class="fa  fa-bars"></i></a>
+		<div style="float: left;">
+			<h:link outcome="/Inicio.xhtml">
+				<h:graphicImage library="images" name="logo.png" />
+			</h:link>
+		</div>
 	</header>
 
 	<aside class="aw-sidebar  js-sidebar">
@@ -34,8 +44,22 @@
 	</aside>
 
 	<section class="aw-content  js-content">
-		<ui:insert name="content" />
+		<ui:insert name="corpo" />
 	</section>
+
+	<script>
+		function configurarMoeda() {
+			$(".moeda").maskMoney({
+				decimal : ",",
+				thousands : ".",
+				allowZero : true
+			});
+		}
+
+		$(document).ready(function() {
+			configurarMoeda();
+		});
+	</script>
 
 </h:body>
 

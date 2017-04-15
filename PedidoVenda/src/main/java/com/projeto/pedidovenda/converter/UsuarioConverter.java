@@ -4,6 +4,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -20,12 +21,9 @@ import com.projeto.util.cdi.CDIServiceLocator;
 @FacesConverter(forClass = Usuario.class)
 public class UsuarioConverter implements Converter {
 
-	// @Inject (não funciona em conversores para essa versão)
+	 @Inject
 	private Usuarios usuarios;
 
-	public UsuarioConverter() {
-		usuarios = CDIServiceLocator.getBean(Usuarios.class);
-	}
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {

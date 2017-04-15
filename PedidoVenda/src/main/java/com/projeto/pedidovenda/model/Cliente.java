@@ -18,6 +18,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CPF;
 
 import validation.DocumentoFederal;
 
@@ -93,7 +94,7 @@ public class Cliente implements Serializable {
 		this.celular = celular;
 	}
 
-	@DocumentoFederal // @CPF
+	 //@DocumentoFederal // @CPF 
 	@NotNull
 	@Size(max = 18)
 	@Column(name = "doc_receita_federal", nullable = false, length = 18, unique = true)

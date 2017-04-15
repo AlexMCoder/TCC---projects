@@ -1,23 +1,65 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html">
-	
-	<nav class="aw-menu">
-		<ul>
-			<li>
-				<h:link><i class="fa  fa-fw  fa-home"></i>Dashboard</h:link>
-			</li>
-			<li class="is-selected">
-				<h:link><i class="fa  fa-fw  fa-user"></i>Página 1</h:link>
-			</li>
-			<li>
-				<h:link><i class="fa  fa-fw  fa-file-text"></i>Página 2</h:link>
-			</li>
-			<li>
-				<h:link><i class="fa  fa-fw  fa-cog"></i>Página 3</h:link>
-			</li>
-		</ul>
-	</nav>
-	
-	
-</ui:composition>
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<nav class="aw-menu">
+	<h:form>
+		<p:growl id="messages" showDetail="true" />
+
+		<p:panelMenu style="width:300px">
+
+			<p:submenu label="Cadastros" icon="ui-icon-refresh">
+				<p:menuitem value="Clientes" actionListener="#{menuView.save}"
+					outcome="/cliente/PesquisaCliente.xhtml" update="messages"
+					icon="ui-icon-disk" />
+
+				<p:menuitem value="Novo Cliente" actionListener="#{menuView.save}"
+					outcome="/cliente/CadastroCliente.xhtml" update="messages"
+					icon="ui-icon-disk" />
+				<p:menuitem value="Usuários" actionListener="#{menuView.save}"
+					outcome="/usuario/PesquisaUsuario.xhtml" update="messages"
+					icon="ui-icon-disk" />
+				<p:menuitem value="Novo Usuários" actionListener="#{menuView.save}"
+					outcome="/usuario/CadastroUsuario.xhtml" update="messages"
+					icon="ui-icon-disk" />
+				<p:menuitem value="Produtos" actionListener="#{menuView.save}"
+					outcome="/produtos/PesquisaProdutos.xhtml" update="messages"
+					icon="ui-icon-disk" />
+				<p:menuitem value="Novo Produtos" actionListener="#{menuView.save}"
+					outcome="/produtos/CadastroProduto.xhtml" update="messages"
+					icon="ui-icon-disk" />
+			</p:submenu>
+
+			<p:separator />
+
+			<p:submenu label="Pedidos">
+				<p:menuitem value="Novo Pedido" actionListener="#{menuView.save}"
+					outcome="/pedidos/CadastroPedido.xhtml" update="messages"
+					icon="ui-icon-disk" />
+				<p:menuitem value="Pesquisa" actionListener="#{menuView.save}"
+					outcome="/pedidos/PesquisaPedidos.xhtml" update="messages"
+					icon="ui-icon-disk" />
+			</p:submenu>
+
+			<p:separator />
+
+			<p:submenu label="Relatórios">
+				<p:menuitem value="Pedidos emitidos"
+					actionListener="#{menuView.save}"
+					outcome="/relatorios/RelatorioPedidosEmitidos" update="messages"
+					icon="ui-icon-disk" />
+				<p:menuitem value="Produtos emitidos"
+					actionListener="#{menuView.save}"
+					outcome="/relatorios/RelatorioProdutosEmitidos" update="messages"
+					icon="ui-icon-disk" />
+			</p:submenu>
+
+		</p:panelMenu>
+	</h:form>
+</nav>
+</html>
+

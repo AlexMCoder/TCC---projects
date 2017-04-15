@@ -5,12 +5,21 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:define name="content">
-		<h1 class="aw-page-title">Título da sua página</h1>
 
-		<h:form id="frm">
-			Conteúdo do formulário
-		</h:form>
+	<f:metadata>
+		<f:viewParam name="dummy" />
+		<f:event listener="#{graficoPedidosCriadosBean.preRender}"
+			type="preRenderView" />
+	</f:metadata>
+	<ui:define name="content">
+		<ui:define name="titulo">Dashboard</ui:define>
+
+		<ui:define name="corpo">
+
+			<p:chart type="line" model="#{graficoPedidosCriadosBean.model}"
+				style="height: 400px" />
+
+		</ui:define>
 	</ui:define>
 
 </ui:composition>

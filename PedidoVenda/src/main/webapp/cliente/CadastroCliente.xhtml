@@ -23,7 +23,7 @@
  			https://java.net/jira/browse/JAVASERVERFACES-2162 -->
 			<!--"viewParam" do omnifaces utilizado, pois o do jsf core faz varias chamadas ao set-->
 			<o:viewParam name="cliente" value="#{cadastroClienteBean.cliente}" />
-			<!-- 	<f:event listener="#{cadastroClienteBean.inicializar}" type="preRenderView" /> -->
+			<f:event listener="#{cadastroClienteBean.inicializar}" type="preRenderView" />
 		</f:metadata>
 
 		<h:form id="frm">

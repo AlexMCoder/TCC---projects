@@ -12,8 +12,8 @@ import org.apache.velocity.tools.generic.NumberTool;
 import com.projeto.pedidovenda.model.Pedido;
 import com.projeto.util.jsf.FacesUtil;
 import com.projeto.util.mail.Mailer;
-import com.outjected.email.api.MailMessage;
-import com.outjected.email.impl.templating.velocity.VelocityTemplate;
+//import com.outjected.email.api.MailMessage;
+//import com.outjected.email.impl.templating.velocity.VelocityTemplate;
 
 @Named
 @RequestScoped
@@ -29,15 +29,15 @@ public class EnvioPedidoEmailBean implements Serializable {
 	private Pedido pedido;
 
 	public void enviarPedido() {
-		MailMessage message = mailer.novaMensagem();
-
-		message.to(this.pedido.getCliente().getEmail())
-				.subject("Pedido " + this.pedido.getId())
-				.bodyHtml(new VelocityTemplate(getClass().getResourceAsStream("/emails/pedido.template")))
-				.put("pedido", this.pedido).put("numberTool", new NumberTool()).put("locale", new Locale("pt", "BR"))
-				.send();
-
-		FacesUtil.addInfoMessage("Pedido enviado por e-mail com sucesso!");
+//		MailMessage message = mailer.novaMensagem();
+//
+//		message.to(this.pedido.getCliente().getEmail())
+//				.subject("Pedido " + this.pedido.getId())
+//				.bodyHtml(new VelocityTemplate(getClass().getResourceAsStream("/emails/pedido.template")))
+//				.put("pedido", this.pedido).put("numberTool", new NumberTool()).put("locale", new Locale("pt", "BR"))
+//				.send();
+//
+//		FacesUtil.addInfoMessage("Pedido enviado por e-mail com sucesso!");
 	}
 
 }

@@ -41,14 +41,16 @@ public class CadastroUsuarioBean implements Serializable {
 	public CadastroUsuarioBean() {
 		limpar();
 	}
-
+	
 	public void inicializar() {
-		// if (FacesUtil.isNotPostback()) {
-		listaGrupos = grupos.listarGrupos();
-
-		// }
-
-	}
+        if (usuario == null) {
+            limpar();
+        }
+ 
+        if (FacesUtil.isNotPostback()) {
+            listaGrupos = grupos.listarGrupos();           
+        }
+    }
 
 	private void limpar() {
 		usuario = new Usuario();
@@ -114,7 +116,11 @@ public class CadastroUsuarioBean implements Serializable {
 	}
 
 	public boolean isEditando() {
-		return this.usuario.getId() != null;
+		if (this.usuario.getId() != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

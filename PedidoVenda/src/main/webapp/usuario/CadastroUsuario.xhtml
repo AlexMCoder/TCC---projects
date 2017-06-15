@@ -37,8 +37,10 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 
-			<p:panelGrid id="usuarioPanel" columns="2"
-				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+			<div class="ui-fluid">
+				<p:panelGrid id="usuarioPanel" columns="2"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo, ui-grid-col-2,ui-grid-col-10, ui-g-12, ui-lg-12"
+				layout="grid" styleClass="ui-panelgrid-blank">
 
 				<p:outputLabel value="Nome" for="nome" />
 				<p:inputText id="nome" size="60" maxlength="80"
@@ -61,6 +63,8 @@
 					value="#{cadastroUsuarioBean.usuario.senha}" redisplay="true" />
 
 			</p:panelGrid>
+			</div>
+			
 
 			<p:panelGrid id="grupoPanel" columns="2"
 				style="width: 100%; margin-top: 20px" columnClasses="rotulo">

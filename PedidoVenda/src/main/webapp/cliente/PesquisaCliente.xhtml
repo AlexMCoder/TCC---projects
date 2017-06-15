@@ -24,8 +24,10 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 
-			<p:panelGrid columns="2" id="painel"
-				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+			<div class="ui-fluid">
+				<p:panelGrid columns="2" id="painel"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo, ui-grid-col-2,ui-grid-col-10, ui-g-12, ui-lg-12"
+				layout="grid" styleClass="ui-panelgrid-blank">
 				<p:outputLabel value="CPF/CNPJ" for="cpfCnpj" />
 				<p:inputText id="cpfCnpj"
 					value="#{pesquisaClienteBean.filtro.documentoReceitaFederal}"
@@ -34,9 +36,9 @@
 				<p:outputLabel value="Nome" for="nome" />
 				<p:inputText id="nome" size="60"
 					value="#{pesquisaClienteBean.filtro.nome}" />
-			</p:panelGrid>
-
-			<p:dataTable id="clientesTable"
+				</p:panelGrid>
+				
+				<p:dataTable id="clientesTable"
 				value="#{pesquisaClienteBean.clientesFiltrados}" var="cliente"
 				style="margin-top: 20px" emptyMessage="Nenhum cliente encontrado."
 				rows="20" paginator="true" paginatorAlwaysVisible="false"
@@ -44,7 +46,7 @@
 				<p:column headerText="Nome" style="width: 800px">
 					<h:outputText value="#{cliente.nome}" />
 				</p:column>
-				<p:column headerText="Tipo" style="width: 100px">
+				<p:column headerText="Tipo" style="width: 100px">	
 					<h:outputText value="#{cliente.tipo}" />
 				</p:column>
 				<p:column headerText="CPF/CNPJ">
@@ -65,7 +67,9 @@
 							value="#{cliente}" />
 					</p:commandButton>
 				</p:column>
-			</p:dataTable>
+				</p:dataTable>
+			</div>
+			
 
 			<p:confirmDialog header="Exclusão de cliente"
 				message="Tem certeza que deseja excluir o cliente #{pesquisaClienteBean.clienteSelecionado.nome}?"

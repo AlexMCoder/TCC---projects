@@ -45,10 +45,13 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 
-			<h:panelGroup id="inclusaoClientePanel">
+			<div class="ui-fluid">
+			<h:panelGroup id="inclusaoClientePanel" columnClasses="ui-grid-col-2,ui-grid-col-10, ui-g-12, ui-lg-12"
+				layout="grid" styleClass="ui-panelgrid-blank">
 
 				<p:panelGrid columns="2" id="painel"
-					style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+					style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo, ui-grid-col-2,ui-grid-col-10, ui-g-12, ui-lg-12"
+				layout="grid" styleClass="ui-panelgrid-blank">
 
 					<p:outputLabel value="Nome" for="nome" />
 					<p:inputText id="nome" size="60" maxlength="80"
@@ -83,10 +86,13 @@
 						disabled="#{not seguranca.editarClientePermitido}"/>
 				</p:panelGrid>
 			</h:panelGroup>
+			</div>
+			
 
 			<p:commandButton value="Adicionar endereço"
 				onclick="inclusaoEnderecoDialog.show(); return false;"
 				style="margin-top: 20px" disabled="#{not seguranca.editarClientePermitido}"/>
+
 
 			<p:dataTable id="enderecosTable"
 				value="#{consultaEnderecosBean.enderecosFiltrados}"

@@ -22,9 +22,12 @@
 					<p:button value="Novo" outcome="/usuario/CadastroUsuario"/>
 				</p:toolbarGroup>
 			</p:toolbar>
-
-            <p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px"
-				columnClasses="rotulo, campo" >
+			
+			
+			<div class="ui-fluid">
+				<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px"
+				columnClasses="rotulo, campo, ui-grid-col-2,ui-grid-col-10, ui-g-12, ui-lg-12"
+				layout="grid" styleClass="ui-panelgrid-blank" >
 				
 				<p:outputLabel value="Nome" for="nome"/>
 				<p:inputText id="nome" size="60" value="#{pesquisaUsuarioBean.filtro.nome}"/>
@@ -50,6 +53,8 @@
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
+			</div>
+            
 			
 			<p:confirmDialog header="Exclusão de usuário" 
 				message="Tem certeza que deseja excluir o usuário #{pesquisaUsuarioBean.usuarioSelecionado.nome}?"

@@ -22,8 +22,11 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 
-			<p:panelGrid columns="2" id="painel"
-				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+			<div class="ui-fluid">
+				<p:panelGrid columns="2" id="painel"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo, ui-grid-col-2,ui-grid-col-10, ui-g-12, ui-lg-12"
+				layout="grid" styleClass="ui-panelgrid-blank">
 				<p:outputLabel value="SKU" for="sku" />
 				<p:inputText id="sku" size="20" value="#{pesquisaProdutosBean.filtro.sku}" />
 
@@ -63,6 +66,8 @@
 				<p:button value="Não" onclick="confirmacaoExclusao.hide(); return false;" />
 				<p:commandButton value="Sim" oncomplete="confirmacaoExclusao.hide();" action="#{pesquisaProdutosBean.excluir}" process="@this" update=":frmPesquisa:produtosTable" />
 			</p:confirmDialog>
+			</div>
+			
 		</h:form>
 	</ui:define>
 </ui:composition>

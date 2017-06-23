@@ -73,11 +73,18 @@ public class CadastroPedidoBean implements Serializable {
 			limpar();
 		}
 
-		this.vendedores = this.usuarios.vendedores();
-
-		this.pedido.adicionarItemVazio();
-
-		this.recalcularPedido();
+//		this.vendedores = this.usuarios.vendedores();
+//
+//		this.pedido.adicionarItemVazio();
+//
+//		this.recalcularPedido();
+		if (FacesUtil.isNotPostback()) {
+ 			this.vendedores = this.usuarios.vendedores();
+ 
+ 			this.pedido.adicionarItemVazio();
+ 
+ 			this.recalcularPedido();
+ 		}
 	}
 
 	private void limpar() {

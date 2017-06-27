@@ -16,14 +16,14 @@ A empresa utilizando este sistema, ganhará mais tempo em outros detalhes, pois 
 ## Recursos de Software
 
 1. Java EE
-2. Facelets
-3. JSF e Maneged Bean
-4. CDI e Implementação Weld
-5. Apache Tomcat
-6. Apache Maven
-7. Primefaces
-8. JPA 2 e Hibernate
-9. Bean Validation e Hibernate Validator
+2. Facelets / Converte O JSF em HTML
+3. JSF e Maneged Bean 
+4. CDI e Implementação Weld / Injeção das classes com WELD
+5. Apache Tomcat / Roda o Projeto
+6. Apache Maven / Cuida das dependências
+7. Primefaces / Framework do layout
+8. JPA 2 e Hibernate / Bando de Dados
+9. Bean Validation e Hibernate Validator / Hibernate nossa implementação para validar o DB
 10. JavaMail
 11. Spring Security
 
